@@ -4,6 +4,6 @@ Feature:Creating employees
   Scenario:Register a new employee
     Given Juan needs to create an employee at OrageHR
     When he makes the registration entry in the application
-     # | firstName | middleName | lastName | employeeId | location      |
-      | Juan      | Jose       | Luna     | 0012       | London Office |
+      | firstName | middleName | lastName | employeeId | location      | otherId    | dateOfBirth      | maritalStatus |
+      | Juan      | Jose       | Luna     | 0012       | London Office | 1234567890 | Tue, 13 Oct 2020 | Single         |
     Then he displays the new employee in the application

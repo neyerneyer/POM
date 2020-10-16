@@ -1,9 +1,7 @@
 package co.com.orange.steps;
 
-import co.com.orange.pageobjects.AddEmployeePage;
-import co.com.orange.pageobjects.OrangeLoginPage;
-import co.com.orange.pageobjects.OrangeMenuPage;
-import co.com.orange.pageobjects.OrangePage;
+import co.com.orange.pageobjects.*;
+import co.com.orange.utils.models.EntityModel;
 import net.thucydides.core.annotations.Step;
 
 import java.util.List;
@@ -13,6 +11,7 @@ public class DiligenceOfInformationStep {
     OrangeLoginPage orangeLoginPage;
     OrangeMenuPage orangeMenuPage;
     AddEmployeePage addEmployeePage;
+    PersonalDetailsPage personalDetailsPage;
 
 
     @Step
@@ -24,8 +23,14 @@ public class DiligenceOfInformationStep {
         orangeLoginPage.eventLogin();
     }
     @Step
-    public void actionAddEmployee(List<String> data){
+    public void actionAddEmployee(List<EntityModel> data){
+        EntityModel entityModel = data.get(0);
         orangeMenuPage.eventMenu();
-        addEmployeePage.eventAddEmployee(data);
+        addEmployeePage.eventAddEmployee(entityModel);
+    }
+    @Step
+    public void actionAddPersonalDetails(List<EntityModel> data){
+        EntityModel entityModel = data.get(0);
+        personalDetailsPage.eventAddPersonalDetails(entityModel);
     }
 }

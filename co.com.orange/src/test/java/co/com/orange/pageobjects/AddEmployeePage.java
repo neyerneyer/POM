@@ -1,11 +1,14 @@
 package co.com.orange.pageobjects;
 
+import co.com.orange.utils.models.EntityModel;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.PageObject;
 import net.serenitybdd.core.pages.WebElementFacade;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.JavascriptExecutor;
 
 import java.util.List;
+
+import static co.com.orange.utils.SelectElement.selectDropdown;
 
 public class AddEmployeePage extends PageObject {
     @FindBy(id = "pimAddEmployeeForm")
@@ -22,24 +25,21 @@ public class AddEmployeePage extends PageObject {
     private WebElementFacade location;
     @FindBy(xpath = "//div[@class='select-wrapper initialized']/ul/li[not(@class='disabled ')]/span")
     private List <WebElementFacade> selectLocation;
+    @FindBy(xpath = "//*[@id='systemUserSaveBtn']")
+    private WebElementFacade btnSave;
 
-    public void eventAddEmployee(List<String> data){
+    public void eventAddEmployee(EntityModel data){
         pimAddEmployeeForm.waitUntilVisible();
         firstName.waitUntilClickable();
-        firstName.sendKeys(data.get(0));
-        middleName.sendKeys(data.get(1));
-        lastName.sendKeys(data.get(2));
+        firstName.sendKeys(data.getFirstName());
+        middleName.sendKeys(data.getMiddleName());
+        lastName.sendKeys(data.getLastName());
         location.click();
-
-        System.out.println(selectLocation.size());
-        for (int i=0; i<selectLocation.size(); i++) {
-            String s = selectLocation.get(i).getText();
-            System.out.println(s);
-            if (selectLocation.get(i).getText().trim().equals(data.get(4).trim())){
-                System.out.println(selectLocation.get(i));
-                selectLocation.get(i).click();
-            }
-
-        }
+        selectDropdown(selectLocation,data.getLocation());
+        btnSave.waitUntilClickable();
+        //JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriver();
+        //javascriptExecutor.executeScript("arguments[0].click()",btnSave);
+        //btnSave.click();
+        btnSave.waitUntilNotVisible();
     }
 }
