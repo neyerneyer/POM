@@ -2,16 +2,22 @@ package co.com.orange.utils.models;
 
 public class EntityModel {
 
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String employeeId;
-    private String location;
-    private String otherId;
-    private String dateOfBirth;
-    private String maritalStatus;
+    private final String firstName;
+    private final String middleName;
+    private final String lastName;
+    private final String otherId;
+    private final String dateOfBirth;
+    private final String maritalStatus;
+    private final String gender;
 
-    public EntityModel() {
+    public EntityModel(String firstName, String middleName, String lastName, String employeeId, String location, String otherId, String dateOfBirth, String maritalStatus, String gender) {
+        this.firstName = firstName;
+        this.middleName = middleName;
+        this.lastName = lastName;
+        this.otherId = otherId;
+        this.dateOfBirth = dateOfBirth;
+        this.maritalStatus = maritalStatus;
+        this.gender = gender;
     }
 
     public String getFirstName() {
@@ -26,14 +32,6 @@ public class EntityModel {
         return lastName;
     }
 
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
     public String getOtherId() {
         return otherId;
     }
@@ -44,5 +42,9 @@ public class EntityModel {
 
     public String getMaritalStatus() {
         return maritalStatus;
+    }
+
+    public String getGender() {
+        return gender;
     }
 }

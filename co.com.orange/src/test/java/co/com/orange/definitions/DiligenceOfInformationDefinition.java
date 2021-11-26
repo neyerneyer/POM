@@ -2,6 +2,7 @@ package co.com.orange.definitions;
 
 import co.com.orange.steps.DiligenceOfInformationStep;
 import co.com.orange.utils.models.EntityModel;
+import co.com.orange.utils.models.UserLogin;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -14,9 +15,9 @@ public class DiligenceOfInformationDefinition {
     DiligenceOfInformationStep diligenceOfInformationStep;
 
     @Given("^Juan needs to create an employee at OrageHR$")
-    public void juanNeedsToCreateAnEmployeeAtOrageHR() {
+    public void juanNeedsToCreateAnEmployeeAtOrageHR(List<UserLogin> data) {
         diligenceOfInformationStep.openPage();
-        diligenceOfInformationStep.loginAction();
+        diligenceOfInformationStep.loginAction(data);
     }
 
     @When("^he makes the registration entry in the application$")
@@ -28,6 +29,7 @@ public class DiligenceOfInformationDefinition {
 
     @Then("^he displays the new employee in the application$")
     public void heDisplaysTheNewEmployeeInTheApplication() {
+        diligenceOfInformationStep.actionEmployeeList();
     }
 
 }

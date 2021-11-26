@@ -1,6 +1,10 @@
 package co.com.hospitals.definitions;
 
+import co.com.hospitals.steps.DiligenceOfTheHospitalInformationStep;
 import co.com.hospitals.steps.PerformingTheRegistrationStep;
+import co.com.hospitals.steps.ScheduleAnAppointmentStep;
+import co.com.hospitals.utils.models.EntityModel;
+import com.codoid.products.exception.FilloException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -11,25 +15,60 @@ import java.util.List;
 public class PerformingTheRegistrationDefinition {
     @Steps
     PerformingTheRegistrationStep performingTheRegistrationStep;
+
+    @Steps
+    ScheduleAnAppointmentStep scheduleAnAppointmentStep;
+
+    @Steps
+    DiligenceOfTheHospitalInformationStep diligenceOfTheHospitalInformationStep;
+
     @Given("^Carlos needs to register a medical application$")
-    public void carlos_needs_to_register_a_medical_application() {
+    public void carlosNeedsToRegisterAMedicalApplication() {
         performingTheRegistrationStep.openPage();
     }
 
-    @When("^you register a \"([^\"]*)\" in the Hospital Administration application$")
-    public void you_register_a_in_the_Hospital_Administration_application(String arg1, List<String> arg2) {
-        // Write code here that turns the phrase above into concrete actions
-        // For automatic transformation, change DataTable to one of
-        // List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
-        // E,K,V must be a scalar (String, Integer, Date, enum etc).
-        // Field names for YourType must match the column names in
-        // your feature file (except for spaces and capitalization).
+
+    @When("^you register a \"([^\"]*)\" in the hospital administration application$")
+    public void youRegisterAInTheHospitalAdministrationApplication(String arg1, List<String> arg2) {
         performingTheRegistrationStep.selectMenu(arg1);
         performingTheRegistrationStep.recordInformation(arg2);
     }
 
     @Then("^he checks that the message \"([^\"]*)\"$")
-    public void he_checks_that_the_message(String arg1) {
+    public void heChecksThatTheMessage(String arg1) {
         performingTheRegistrationStep.checkMessage(arg1);
+    }
+
+
+    @Given("^carlos needs to see the doctor$")
+    public void carlosNeedsToSeeTheDoctor() {
+        performingTheRegistrationStep.openPage();
+    }
+
+
+    @When("^he makes an appointment$")
+    public void heMakesAnAppointment() throws FilloException {
+        scheduleAnAppointmentStep.enterAppointmentPage();
+    }
+
+    @Then("^he checks that message$")
+    public void heChecksThatMessage() {
+        scheduleAnAppointmentStep.checkTheScheduleOfAnAppointment("Datos guardados correctamente");
+    }
+
+    @Given("^Carlos needs to register a new hospital$")
+    public void carlosNeedsToRegisterANewHospital() {
+        performingTheRegistrationStep.openPage();
+    }
+
+
+    @When("^he record hospital information$")
+    public void heRecordHospitalInformation(List<EntityModel> arg1) {
+        diligenceOfTheHospitalInformationStep.withHospitalInformation(arg1);
+    }
+
+    @Then("^check that the correct message \"([^\"]*)\"$")
+    public void checkThatTheCorrectMessage(String arg1) {
+        diligenceOfTheHospitalInformationStep.checkMessageFeature(arg1);
     }
 }

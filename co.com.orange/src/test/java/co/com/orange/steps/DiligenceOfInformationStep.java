@@ -2,6 +2,7 @@ package co.com.orange.steps;
 
 import co.com.orange.pageobjects.*;
 import co.com.orange.utils.models.EntityModel;
+import co.com.orange.utils.models.UserLogin;
 import net.thucydides.core.annotations.Step;
 
 import java.util.List;
@@ -12,6 +13,7 @@ public class DiligenceOfInformationStep {
     OrangeMenuPage orangeMenuPage;
     AddEmployeePage addEmployeePage;
     PersonalDetailsPage personalDetailsPage;
+    EmployeeListPage employeeListPage;
 
 
     @Step
@@ -19,8 +21,13 @@ public class DiligenceOfInformationStep {
         orangePage.open();
     }
     @Step
-    public void loginAction(){
-        orangeLoginPage.eventLogin();
+    public void loginAction(List<UserLogin> userLogins){
+        UserLogin model = userLogins.get(0);
+        orangeLoginPage.eventLogin(model);
+    }
+    @Step
+    public void verifyMessageLogin(String message) {
+        orangeMenuPage.verifyLogin(message);
     }
     @Step
     public void actionAddEmployee(List<EntityModel> data){
@@ -32,5 +39,11 @@ public class DiligenceOfInformationStep {
     public void actionAddPersonalDetails(List<EntityModel> data){
         EntityModel entityModel = data.get(0);
         personalDetailsPage.eventAddPersonalDetails(entityModel);
+    }
+    @Step
+    public void actionEmployeeList(){
+        orangeMenuPage.eventMenuListEmployee();
+        employeeListPage.validateEmployee();
+
     }
 }

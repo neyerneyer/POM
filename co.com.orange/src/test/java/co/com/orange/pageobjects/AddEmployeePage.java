@@ -11,7 +11,8 @@ import java.util.List;
 import static co.com.orange.utils.SelectElement.selectDropdown;
 
 public class AddEmployeePage extends PageObject {
-    @FindBy(id = "pimAddEmployeeForm")
+    public static String validation;
+    @FindBy(tagName = "h1")
     private WebElementFacade pimAddEmployeeForm;
     @FindBy(id = "firstName")
     private WebElementFacade firstName;
@@ -21,25 +22,32 @@ public class AddEmployeePage extends PageObject {
     private WebElementFacade lastName;
     @FindBy(id = "employeeId")
     private WebElementFacade employeeId;
-    @FindBy(css = "div.select-wrapper.initialized > input.select-dropdown")
-    private WebElementFacade location;
-    @FindBy(xpath = "//div[@class='select-wrapper initialized']/ul/li[not(@class='disabled ')]/span")
-    private List <WebElementFacade> selectLocation;
-    @FindBy(xpath = "//*[@id='systemUserSaveBtn']")
+    @FindBy(id = "photofile")
+    private WebElementFacade photograph;
+    @FindBy(id = "btnSave")
     private WebElementFacade btnSave;
 
-    public void eventAddEmployee(EntityModel data){
+    @FindBy(xpath = "//div[@class='select-wrapper initialized']/ul/li[not(@class='disabled ')]/span")
+    private List<WebElementFacade> selectLocation;
+
+
+    public void eventAddEmployee(EntityModel data) {
         pimAddEmployeeForm.waitUntilVisible();
         firstName.waitUntilClickable();
         firstName.sendKeys(data.getFirstName());
         middleName.sendKeys(data.getMiddleName());
         lastName.sendKeys(data.getLastName());
-        location.click();
-        selectDropdown(selectLocation,data.getLocation());
+        validation = employeeId.getValue();
+        //employeeId.sendKeys(data.getEmployeeId());
+        photograph.sendKeys("C:\\CursoAutomatizacion\\POM\\co.com.orange\\src\\test\\resources\\img\\img.png");
         btnSave.waitUntilClickable();
+        btnSave.click();
+
+        //selectDropdown(selectLocation,data.getLocation());
+        //btnSave.waitUntilClickable();
         //JavascriptExecutor javascriptExecutor = (JavascriptExecutor) getDriver();
         //javascriptExecutor.executeScript("arguments[0].click()",btnSave);
         //btnSave.click();
-        btnSave.waitUntilNotVisible();
+        //btnSave.waitUntilNotVisible();
     }
 }
