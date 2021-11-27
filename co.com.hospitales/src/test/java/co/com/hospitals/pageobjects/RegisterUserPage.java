@@ -27,11 +27,12 @@ public class RegisterUserPage extends PageObject {
     private WebElementFacade save;
 
     public void fillOutInformation(List<String> arg2){
+        fullName.waitUntilVisible().sendKeys();
         fullName.sendKeys(arg2.get(0));
         lastName.sendKeys(arg2.get(1));
         telephone.sendKeys(arg2.get(2));
         identificationType.select().byVisibleText(arg2.get(3));
         identification.sendKeys(arg2.get(4));
-        //save.click();
+        save.click();
     }
 }

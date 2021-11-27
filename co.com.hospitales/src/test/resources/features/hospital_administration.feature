@@ -37,5 +37,5 @@ Feature: Register a medical application
     Then check that the message of the added room "Datos guardados correctamente."
     Examples:
       | roomNumber |
-      ##@externaldata@./src/test/resources/datadriven/data.xlsx@feature@2
+      ##@externaldata@./src/test/resources/datadriven/data.xlsx@feature@2,3
    |4567|
